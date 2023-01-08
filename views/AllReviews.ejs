@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+
+<div class="container">
+    <div class="jumbotron centered">
+      <h1 class="display-3">My Review</h1>
+      <form action="/AllReviews/<%= UseBook %>" method="POST">
+  
+        <div class="form-group">
+          <input type="text" class="form-control text-center" name="NameOfReview" id="" placeholder="What's you name">
+          <input type="number" class="form-control text-center" name="Rate" id="" placeholder="Enter rating out of 5"> 
+          <input type="text" class="form-control text-center" name="DetReview" placeholder="What's your review of this book?">
+  
+        </div>
+        <button type="submit" class="btn btn-dark">Submit</button>
+      </form>
+    </div>
+  </div>
+
+
+<%- include('partials/footer') %>

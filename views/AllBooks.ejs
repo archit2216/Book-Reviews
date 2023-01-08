@@ -1,0 +1,32 @@
+<%- include('partials/header') %>
+
+<div class="jumbotron text-center">
+    <div class="container" style="display: flex; flex-direction: column;">
+      <h1 class="display-3">This is the list of all books</h1>
+      <% FoundBooks.items.forEach(function(book){ %>
+        <form action="/AllBooks" method="POST">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="<%= book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail %>" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title"><%= book.volumeInfo.title %></h5>
+              <input id="prodId" name="IdOfBook" type="hidden" value=<%= book.id %>>
+              <h6 id="book-id">Book Id: <%= book.id %></h6>
+              <hr>
+              <p class="card-text">Published Date: <%= book.volumeInfo.publishedDate %></p>
+              <% if(book.volumeInfo.authors != undefined){ %>
+              <p class="card-text">Authors: <% book.volumeInfo.authors.forEach(function(auth){ %>
+                <%= auth %>,
+               <% }) %> </p>
+               <% } %>
+               <hr>
+              <a href="<%= book.volumeInfo.buyLink %>" class="btn btn-success">Buy Book</a>
+              <button class="btn btn-primary" type="submit">Add a review</button>
+            </div>
+          </div>
+
+      </form>     
+     <% }) %>
+    </div>
+  </div>
+
+<%- include('partials/footer') %>

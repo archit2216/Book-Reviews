@@ -1,0 +1,8 @@
+.card{
+    display: inline-block;
+    margin: 1rem;
+}
+
+.card:hover{
+    box-shadow:0px 0px 40px 10px #0ff;
+}
