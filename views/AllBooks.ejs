@@ -2,6 +2,7 @@
 
 <div class="jumbotron text-center">
     <div class="container" style="display: flex; flex-direction: column;">
+      <a class="btn btn-secondary" role="button" href="/">Home</a>
       <h1 class="display-3">This is the list of all books</h1>
       <% FoundBooks.items.forEach(function(book){ %>
         <form action="/AllBooks" method="POST">
@@ -19,7 +20,11 @@
                <% }) %> </p>
                <% } %>
                <hr>
-              <a href="<%= book.volumeInfo.buyLink %>" class="btn btn-success">Buy Book</a>
+               <% if(book.saleInfo.buyLink != undefined){ %>
+              <a href="<%= book.saleInfo.buyLink %>" class="btn btn-success">Buy Book</a>
+              <% } else {%>
+                <a class="btn btn-danger">Not For Sale</a>
+                <% } %>
               <button class="btn btn-primary" type="submit">Add a review</button>
             </div>
           </div>

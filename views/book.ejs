@@ -5,6 +5,12 @@
       <h1 class="display-3"><%= BookData.volumeInfo.title %></h1>
         <span id="book-id"><h6 name="IdOfBook">Book Id: <%= BookData.id %></h6></span>
         <img class="book-image" src="<%= BookData.volumeInfo.imageLinks && BookData.volumeInfo.imageLinks.thumbnail %>" alt="No image">
+        <br>
+        <% if(BookData.saleInfo.buyLink != undefined){ %>
+          <a href="<%= BookData.saleInfo.buyLink %>" class="btn btn-success">Buy Book</a>
+          <% } else {%>
+            <a class="btn btn-danger">Not For Sale</a>
+            <% } %>
         <% if(BookData.volumeInfo.authors != undefined){ %>
         <p class="book-author">Authors: <% BookData.volumeInfo.authors.forEach(function(auth){ %>
             <%= auth %>,
@@ -24,8 +30,9 @@
           <% }) %>
       </div>
       <form action="/book/<%= BookData.id %>" method="POST">
-      <button type="submit">Add a review</button>
+      <button class="btn btn-primary" type="submit">Add a review</button>
       </form>     
+      <a class="btn btn-secondary" role="button" href="/">Home</a>
     </div>
   </div>
 
