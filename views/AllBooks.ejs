@@ -4,7 +4,7 @@
     <div class="container" style="display: flex; flex-direction: column;">
       <a class="btn btn-secondary" role="button" href="/">Home</a>
       <h1 class="display-3">This is the list of all books</h1>
-      <% FoundBooks.items.forEach(function(book){ %>
+      <% FoundBooks.items && FoundBooks.items.forEach(function(book){ %>
         <form action="/AllBooks" method="POST">
           <div class="card" style="width: 18rem;">
             <img class="card-img-top" src="<%= book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail %>" alt="Card image cap">
