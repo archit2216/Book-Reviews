@@ -186,35 +186,35 @@ app.post("/AllBooks",function(req,res){
 });
 
 app.get("/book/:customBookId",function(req,res){
-    if(req.isAuthenticated()){
-        const bookId=req.params.customBookId;
-        const options = {
-            method: 'GET',
-            url:`https://www.googleapis.com/books/v1/volumes/${bookId}?key=AIzaSyBlt2jQtdDfF_bmJFZMXbSuZgvJNkXkVO4`,
-            async:'true',
-        };
-        try{
-            axios.request(options)
-            .then((response)=>{
-                const ReqData=response.data;
-                BookRev.findOne({BookId:bookId},function(err,foundBook){
-                    if(!err){
-                        if(foundBook){
-                            const MyArray=foundBook.ArrayOfRevs;
-                            res.render("book",{BookData:ReqData,GeneratedRevs:MyArray});
-                        }else{
-                            res.render("book",{BookData:ReqData,GeneratedRevs:[]});
-                        }
+    // if(req.isAuthenticated()){
+    const bookId=req.params.customBookId;
+    const options = {
+        method: 'GET',
+        url:`https://www.googleapis.com/books/v1/volumes/${bookId}?key=AIzaSyBlt2jQtdDfF_bmJFZMXbSuZgvJNkXkVO4`,
+        async:'true',
+    };
+    try{
+        axios.request(options)
+        .then((response)=>{
+            const ReqData=response.data;
+            BookRev.findOne({BookId:bookId},function(err,foundBook){
+                if(!err){
+                    if(foundBook){
+                        const MyArray=foundBook.ArrayOfRevs;
+                        res.render("book",{BookData:ReqData,GeneratedRevs:MyArray});
+                    }else{
+                        res.render("book",{BookData:ReqData,GeneratedRevs:[]});
                     }
-                });
-            })
-        }catch(err){
-            console.log(err);
-            res.redirect("/search");
-        }
-    }else{
-        res.redirect("/login")
+                }
+            });
+        })
+    }catch(err){
+        console.log(err);
+        res.redirect("/search");
     }
+    // }else{
+    //     res.redirect("/login")
+    // }
 });
 
 app.get("/AllReviews/:customBookId",function(req,res){
