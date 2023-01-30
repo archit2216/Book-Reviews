@@ -2,7 +2,7 @@
 
 <div class="jumbotron text-center">
     <div class="container" style="display: flex; flex-direction: column;">
-      <a class="btn btn-secondary" role="button" href="/">Home</a>
+      <a class="btn btn-secondary" role="button" href="/search">Home</a>
       <h1 class="display-3">This is the list of all books</h1>
       <% FoundBooks.items && FoundBooks.items.forEach(function(book){ %>
         <form action="/AllBooks" method="POST">

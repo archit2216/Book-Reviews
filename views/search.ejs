@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/bootstrap-social.css">
+  <link rel="stylesheet" href="css/index.css">
+    <title>Books</title>
+</head>
+<body style="background-image: url(https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1856&q=80);">
+    <div style="text-align: center; transition: 2s;">
+    <h1>BookReviews</h1>
+    </div>
+    <div class="input-group input-group-lg" style="display: flex; align-items: center; justify-content: center;">
+    <form action="/search" method="POST">
+        <input type="text" name="book" id="bookname" style="border:5px solid white;text-align: center;" size="50" placeholder="Enter the name of Book"/>
+        <br>
+        <div style="text-align: center;">
+            <button class="btn btn-success" type="submit">Search</button>
+            <a class="btn btn-dark" href="/logout" role="button">Log Out</a>
+        </div>
+    </form>
+    </div>
+</body>
+<script src="app.js"></script>
+</html>
