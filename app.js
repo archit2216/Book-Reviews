@@ -175,18 +175,22 @@ app.post('/search',function(req,res){
 });
 
 app.post("/AllBooks",function(req,res){
-    let bookId=req.body.IdOfBook;
+    if(req.isAuthenticated()){
+        let bookId=req.body.IdOfBook;
 
-    try{
-        res.redirect("/book/"+bookId);
-    }catch(err){
-        console.log(err);
-        res.redirect("/AllBooks");
+        try{
+            res.redirect("/book/"+bookId);
+        }catch(err){
+            console.log(err);
+            res.redirect("/AllBooks");
+        }
+    }else{
+        res.redirect("/login");
     }
 });
 
 app.get("/book/:customBookId",function(req,res){
-    // if(req.isAuthenticated()){
+    if(req.isAuthenticated()){
     const bookId=req.params.customBookId;
     const options = {
         method: 'GET',
@@ -212,9 +216,9 @@ app.get("/book/:customBookId",function(req,res){
         console.log(err);
         res.redirect("/search");
     }
-    // }else{
-    //     res.redirect("/login")
-    // }
+    }else{
+        res.redirect("/login")
+    }
 });
 
 app.get("/AllReviews/:customBookId",function(req,res){
