@@ -14,7 +14,15 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(session({secret:"secret",resave:false,saveUninitialized:false}));
 app.use(passport.initialize());
 app.enable('trust proxy');
-app.use(passport.session());
+app.use(passport.session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+    proxy: true,
+    cookie: {
+        secure: true
+    }
+}));
 
 mongoose.connect("mongodb+srv://architsharma:archit2216@cluster0.apcb9v2.mongodb.net/BooksDB?retryWrites=true&w=majority",{useNewUrlParser:true});
 
