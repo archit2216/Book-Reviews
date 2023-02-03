@@ -239,43 +239,39 @@ app.get("/AllReviews/:customBookId",function(req,res){
     }
 })
 app.post("/AllReviews/:customBookId",function(req,res){
-    if(req.isAuthenticated()){
-        const NewRev=new Review({
-            NameOfRev:req.user.username,
-            Rating:req.body.Rate,
-            DetailRev:req.body.DetReview
-        });
+    const NewRev=new Review({
+        NameOfRev:req.user.username,
+        Rating:req.body.Rate,
+        DetailRev:req.body.DetReview
+    });
 
-        const Id=req.params.customBookId;
-        if(NewRev.NameOfRev.length===0){
-            res.redirect('/AllReviews/'+Id+'?e=' + encodeURIComponent('Enter your name'));
-        }else if(NewRev.DetailRev.length===0){
-            res.redirect('/AllReviews/'+Id+'?e=' + encodeURIComponent('Enter your review for the book'));
-        }else if(NewRev.Rating>5 || NewRev.Rating<=0 || NewRev.Rating==null || NewRev.Rating===""){
-            // res.redirect("/AllReviews/"+Id);
-            res.redirect('/AllReviews/'+Id+'?e=' + encodeURIComponent('Rating should be in the range of 1 to 5'));
-        }else{
-            let defaultRev=[];
-            defaultRev.push(NewRev);
-            BookRev.findOne({"BookId":Id},function(err,foundBook){
-                if(!err){
-                    if(!foundBook){
-                        const NewBook=new BookRev({
-                            BookId:Id,
-                            ArrayOfRevs:defaultRev
-                        });
-                        NewBook.save();
-                        res.redirect("/book/"+Id);
-                    }else{
-                        foundBook.ArrayOfRevs.push(NewRev);
-                        foundBook.save();
-                        res.redirect("/book/"+Id);
-                    }
-                }
-            });
-        }
+    const Id=req.params.customBookId;
+    if(NewRev.NameOfRev.length===0){
+        res.redirect('/AllReviews/'+Id+'?e=' + encodeURIComponent('Enter your name'));
+    }else if(NewRev.DetailRev.length===0){
+        res.redirect('/AllReviews/'+Id+'?e=' + encodeURIComponent('Enter your review for the book'));
+    }else if(NewRev.Rating>5 || NewRev.Rating<=0 || NewRev.Rating==null || NewRev.Rating===""){
+        // res.redirect("/AllReviews/"+Id);
+        res.redirect('/AllReviews/'+Id+'?e=' + encodeURIComponent('Rating should be in the range of 1 to 5'));
     }else{
-        res.redirect('/login');
+        let defaultRev=[];
+        defaultRev.push(NewRev);
+        BookRev.findOne({"BookId":Id},function(err,foundBook){
+            if(!err){
+                if(!foundBook){
+                    const NewBook=new BookRev({
+                        BookId:Id,
+                        ArrayOfRevs:defaultRev
+                    });
+                    NewBook.save();
+                    res.redirect("/book/"+Id);
+                }else{
+                    foundBook.ArrayOfRevs.push(NewRev);
+                    foundBook.save();
+                    res.redirect("/book/"+Id);
+                }
+            }
+        });
     }
 })
 app.post("/book/:customBookId",function(req,res){
