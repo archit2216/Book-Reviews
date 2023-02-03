@@ -222,18 +222,18 @@ app.get("/book/:customBookId",function(req,res){
 });
 
 app.get("/AllReviews/:customBookId",async function(req,res){
-    const check=await req.isAuthenticated();
-    if(check){
-        try{
-            const bookId=req.params.customBookId;
-            res.render("AllReviews",{UseBook:bookId});
-        }catch(err){
-            console.log(err);
-            res.redirect('/search');
+    await req.isAuthenticated();
+    // if(check){
+    try{
+        const bookId=req.params.customBookId;
+        res.render("AllReviews",{UseBook:bookId});
+    }catch(err){
+        console.log(err);
+        res.redirect('/search');
         }
-    }else{
-        res.redirect("/login");
-    }
+    // }else{
+    //     res.redirect("/login");
+    // }
 })
 app.post("/AllReviews/:customBookId",function(req,res){
     if(req.isAuthenticated()){
