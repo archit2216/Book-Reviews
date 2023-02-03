@@ -13,6 +13,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(session({secret:"secret",resave:false,saveUninitialized:false}));
 app.use(passport.initialize());
+app.enable('trust proxy');
 app.use(passport.session());
 
 mongoose.connect("mongodb+srv://architsharma:archit2216@cluster0.apcb9v2.mongodb.net/BooksDB?retryWrites=true&w=majority",{useNewUrlParser:true});
@@ -221,19 +222,13 @@ app.get("/book/:customBookId",function(req,res){
     }
 });
 
-app.get("/AllReviews/:customBookId",async function(req,res){
-    await req.isAuthenticated();
-    // if(check){
-    try{
+app.get("/AllReviews/:customBookId",function(req,res){
+    if(req.isAuthenticated()){
         const bookId=req.params.customBookId;
         res.render("AllReviews",{UseBook:bookId});
-    }catch(err){
-        console.log(err);
-        res.redirect('/search');
-        }
-    // }else{
-    //     res.redirect("/login");
-    // }
+    }else{
+        res.redirect("/login");
+    }
 })
 app.post("/AllReviews/:customBookId",function(req,res){
     if(req.isAuthenticated()){
